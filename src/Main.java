@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2) {
@@ -20,6 +22,8 @@ public class Main {
             sim.calcularTodo(um);
             sim.imprimirMatriz();
 
+            Scanner sc = new Scanner(System.in);
+
             System.out.print("\nIntroduce el número de vecinos a considerar: ");
             int k = sc.nextInt();
 
@@ -32,7 +36,7 @@ public class Main {
             String tipoPrediccion = (tipo == 1) ? "simple" : "media";
 
             Prediccion prediccion = new Prediccion(um, sim, k);
-            double[][] matrizPredicha = prediccion.generarMatrizPredicha(tipoPrediccion);
+            double[][] matrizPredicha = prediccion.generarMatrizPredicha(tipoPrediccion, 3.0);
             prediccion.imprimirMatriz(matrizPredicha);
 
 
