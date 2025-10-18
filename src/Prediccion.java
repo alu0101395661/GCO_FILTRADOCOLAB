@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Prediccion {
 
@@ -20,6 +21,7 @@ public class Prediccion {
         // Obtener los vecinos más similares
         int[] vecinos = topNVecinos(simMatrix[u], ratings, u, i, numVecinos);
 
+        System.out.println("Predicción de " + u + " sobre " + i + ":");
 
         double num = 0.0;
         double den = 0.0;
@@ -41,11 +43,11 @@ public class Prediccion {
             }
         }
 
-        System.out.println("Predicción de " + u + " sobre " + i + ": " + num/den);
+        System.out.println("Predicción de " + u + " sobre " + i + ": " + (num/den));
 
         System.out.println("Vecinos de " + u + " con el item " + i + ": ");
         System.out.println(vecs);
-        System.out.println();
+        System.out.println("----------------------------------------------------------------");
 
         if (den == 0) return Double.NaN; // no hay vecinos válidos
         return num / den;
@@ -59,6 +61,7 @@ public class Prediccion {
         double mediaU = um.getUserMean(u);
         int[] vecinos = topNVecinos(simMatrix[u], ratings, u, i, numVecinos);
 
+        System.out.println("Predicción de " + u + " sobre " + i + ":");
         System.out.println("Media de " + u + ": " + mediaU);
 
         double num = 0.0;
@@ -83,11 +86,11 @@ public class Prediccion {
             }
         }
 
-        System.out.println("Predicción de " + u + " sobre " + i + ": " + num/den);
+        System.out.println("Predicción de " + u + " sobre " + i + ": " + (mediaU + (num/den)));
 
         System.out.println("Vecinos de " + u + " con el item " + i + ": ");
         System.out.println(vecs);
-        System.out.println();
+        System.out.println("----------------------------------------------------------------");
 
         if (den == 0) return Double.NaN;
         return mediaU + (num / den);
@@ -126,12 +129,12 @@ public class Prediccion {
 
         
 
-        for (int i = 0; i <= nUsuarios; i++) {
+        for (int i = 0; i < nUsuarios; i++) {
             if (num_predicciones[i] != 0) {
                 Map<Integer, Double> recs = new HashMap<Integer, Double>();
 
-                for (int j = 0; j <= nItems; j++) {
-                    if (recomendaciones[i][j] == Double.NaN) {
+                for (int j = 0; j < nItems; j++) {
+                    if (recomendaciones[i][j] == 0) {
                         continue;
                     } else if (recomendaciones[i][j] < valorMedio) {
                         continue;
@@ -141,7 +144,7 @@ public class Prediccion {
                 }
 
                 if (!recs.isEmpty()) {
-                    List<Integer> items = recs.entriSet().stream().sorted(Map.Entry.<Integer,Double>comparingByValue().reversed()).limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
+                    List<Integer> items = recs.entrySet().stream().sorted(Map.Entry.<Integer,Double>comparingByValue().reversed()).limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
                     System.out.println("Recomendación al usuario " + i + ": " );
                     String top = "";
                     

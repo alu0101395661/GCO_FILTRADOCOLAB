@@ -17,6 +17,10 @@ public class Main {
             um.loadFromFile(ruta);
             um.printMatrix();
 
+            double val_max = um.getMaxRating();
+            double val_min = um.getMinRating();
+            double val_medio = (val_max + val_min) / 2;
+
             // Calcular similitudes
             Similitud sim = new Similitud(metrica);
             sim.calcularTodo(um);
@@ -36,7 +40,7 @@ public class Main {
             String tipoPrediccion = (tipo == 1) ? "simple" : "media";
 
             Prediccion prediccion = new Prediccion(um, sim, k);
-            double[][] matrizPredicha = prediccion.generarMatrizPredicha(tipoPrediccion, 3.0);
+            double[][] matrizPredicha = prediccion.generarMatrizPredicha(tipoPrediccion, val_medio);
             prediccion.imprimirMatriz(matrizPredicha);
 
 

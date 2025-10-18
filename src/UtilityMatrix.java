@@ -82,7 +82,7 @@ public class UtilityMatrix {
     /** Imprime la matriz en consola */
     public void printMatrix() {
         System.out.printf("Valor mínimo: %.1f | Valor máximo: %.1f%n", minRating, maxRating);
-        System.out.println("Matriz de utilidad (NaN = sin valoración):");
+        System.out.println("Matriz de utilidad:");
 
         for (double[] row : matrix) {
             for (double value : row) {

@@ -1,4 +1,3 @@
-import java.util.*;
 
 public class Similitud {
 
@@ -79,17 +78,15 @@ public class Similitud {
     
     private double euclidea(double[] a, double[] b) {
         double suma = 0.0;
-        int count = 0;
 
         for (int i = 0; i < a.length; i++) {
             if (!Double.isNaN(a[i]) && !Double.isNaN(b[i])) {
                 double diff = a[i] - b[i];
                 suma += diff * diff;
-                count++;
             }
         }
-        if (count == 0) return 0.0;
-        double dist = Math.sqrt(suma / count);
+
+        double dist = Math.sqrt(suma);
         return 1.0 / (1.0 + dist);
     }
 
