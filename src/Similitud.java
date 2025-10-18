@@ -118,4 +118,8 @@ public class Similitud {
             System.out.println();
         }
     }
+
+    public String getMetrica() {
+        return metrica;
+    }
 }

@@ -42,6 +42,7 @@ public class Main {
             Prediccion prediccion = new Prediccion(um, sim, k);
             double[][] matrizPredicha = prediccion.generarMatrizPredicha(tipoPrediccion, val_medio);
             prediccion.imprimirMatriz(matrizPredicha);
+            VisualizadorHTML.generarHTML(um, sim, matrizPredicha, prediccion, metrica, k, tipoPrediccion);
 
 
         } catch (Exception e) {
