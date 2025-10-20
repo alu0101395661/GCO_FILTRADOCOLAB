@@ -6,6 +6,9 @@ public class Prediccion {
     private UtilityMatrix um;
     private Similitud sim;
     private int numVecinos; // número de vecinos a considerar
+    private final List<String[]> detalles = new ArrayList<>();
+    private final Map<Integer, List<Integer>> recomendacionesFinales = new HashMap<>();
+
 
     public Prediccion(UtilityMatrix um, Similitud sim, int numVecinos) {
         this.um = um;
@@ -43,15 +46,28 @@ public class Prediccion {
             }
         }
 
-        System.out.println("Predicción de " + u + " sobre " + i + ": " + (num/den));
+        double valorPred;
+        if (den == 0) {
+            valorPred = Double.NaN;
+        } else {
+            valorPred = num / den;
+        }
 
-        System.out.println("Vecinos de " + u + " con el item " + i + ": ");
-        System.out.println(vecs);
+        System.out.println("Predicción de " + u + " sobre " + i + ": " + valorPred);
+        System.out.println("Vecinos de " + u + " con el item " + i + ": " + vecs);
         System.out.println("----------------------------------------------------------------");
 
-        if (den == 0) return Double.NaN; // no hay vecinos válidos
-        return num / den;
+        // Guardar detalle para el visor
+        detalles.add(new String[]{
+            String.valueOf(u),
+            String.valueOf(i),
+            String.format("%.3f", valorPred),
+            vecs
+        });
+
+        return valorPred;
     }
+
 
     
     public double predecirConMedia(int u, int i) {
@@ -86,14 +102,26 @@ public class Prediccion {
             }
         }
 
-        System.out.println("Predicción de " + u + " sobre " + i + ": " + (mediaU + (num/den)));
+        double valorPred;
+        if (den == 0) {
+            valorPred = Double.NaN;
+        } else {
+            valorPred = mediaU + (num / den);
+        }
 
-        System.out.println("Vecinos de " + u + " con el item " + i + ": ");
-        System.out.println(vecs);
+        System.out.println("Predicción de " + u + " sobre " + i + ": " + valorPred);
+        System.out.println("Vecinos de " + u + " con el item " + i + ": " + vecs);
         System.out.println("----------------------------------------------------------------");
 
-        if (den == 0) return Double.NaN;
-        return mediaU + (num / den);
+        // Guardar detalle para el visor
+        detalles.add(new String[]{
+            String.valueOf(u),
+            String.valueOf(i),
+            String.format("%.3f", valorPred),
+            vecs
+        });
+
+        return valorPred;
     }
 
     /**
@@ -153,6 +181,8 @@ public class Prediccion {
                     }
 
                     System.out.println(top);
+
+                    recomendacionesFinales.put(i, items);
                 }
             }
         }
@@ -190,4 +220,14 @@ public class Prediccion {
             System.out.println();
         }
     }
+
+    //  GETTERS PARA VISUALIZADOR HTML
+    public List<String[]> getDetalles() {
+        return detalles;
+    }
+
+    public Map<Integer, List<Integer>> getRecomendacionesFinales() {
+        return recomendacionesFinales;
+    }
+
 }
