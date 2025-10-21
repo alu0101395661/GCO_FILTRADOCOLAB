@@ -11,6 +11,7 @@ Carga una **matriz de utilidad** (usuarios × ítems) desde un archivo de texto 
 - Calcular la **matriz de similitud** entre usuarios según una métrica elegida.
 - Generar predicciones para las valoraciones desconocidas (`NaN`).
 - Obtener una lista de **ítems recomendados** para cada usuario.
+- Muestra los cálculos para cada predicción (solo se puede ver en la terminal).
 - Visualizar los resultados en un archivo html.
 
 ---
